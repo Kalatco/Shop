@@ -48,3 +48,26 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = ['images', 'name', 'description', 'category', 'sizes']
+
+
+class CustomerSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Customer
+        fields = '__all__'
+
+
+class OrderProductSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OrderProduct
+        fields = ['product', 'quantity']
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    customer = CustomerSerializer()
+    orderItems = OrderProductSerializer(many=True)
+
+    class Meta:
+        model = Order
+        fields = ['customer', 'orderItems']

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'products',
     'django_cleanup',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
