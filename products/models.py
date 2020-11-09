@@ -30,10 +30,10 @@ class Product(models.Model):
 class ProductSize(models.Model):
     product = models.ForeignKey(Product, related_name='sizes', on_delete=models.CASCADE, null=True)
     size = models.ForeignKey(Size, on_delete=models.CASCADE)
-    price = models.FloatField(default=0.0)
+    cost = models.FloatField(default=0.0)
 
     def __str__(self):
-        return f"{self.size}, ${self.price}"
+        return f"{self.size}"
 
 
 class Image(models.Model):
@@ -77,7 +77,6 @@ class Order(models.Model):
         choices=ORDER_STATUS,
         default=0
     )
-    total_cost = models.FloatField(default=0.0)
     tracking = models.TextField(max_length=120, default=None, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True)
 
@@ -102,6 +101,7 @@ class Order(models.Model):
 
 class OrderProduct(models.Model):
     product = models.ForeignKey(Product, related_name='orderItems', on_delete=models.CASCADE)
+    product_size = models.ForeignKey(ProductSize, related_name='productSize', on_delete=models.CASCADE, null=True)
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
     cost = models.FloatField(default=0.0)

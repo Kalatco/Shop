@@ -32,7 +32,7 @@ class ProductInline(admin.TabularInline):
 class CategoryAdmin(admin.ModelAdmin):
     model = Category
     search_fields= ('name', )
-    list_display = ('name', )
+    list_display = ('id', 'name', )
 
     formfield_overrides = {
         models.TextField: {'widget': Textarea(attrs={ 'rows': 2, 'cols': 100 })},
@@ -56,20 +56,27 @@ class ImageInline(admin.TabularInline):
 
 class SizeAdmin(admin.ModelAdmin):
     model = Size
+    list_display = ('id', 'name')
 
     formfield_overrides = {
         models.TextField: {'widget': Textarea(attrs={ 'rows': 2, 'cols': 100 })},
     }
 
+    def has_delete_permission(self, request, obj=None):
+        return False
+
 
 class ProductSize(admin.TabularInline):
     model = ProductSize
+
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 class ProductAdmin(admin.ModelAdmin):
     model = Product
     search_fields= ('name', 'category')
-    list_display = ('name', 'category')
+    list_display = ('id', 'name', 'category')
 
     formfield_overrides = {
         models.TextField: {'widget': Textarea(attrs={ 'rows': 4, 'cols': 100 })},
@@ -86,7 +93,7 @@ class ProductAdmin(admin.ModelAdmin):
 
 class OrderInline(admin.TabularInline):
     model = Order
-    readonly_fields = ('total_cost', 'status', 'tracking')
+    readonly_fields = ('status', 'tracking')
     can_delete = False
     max_num=0
 
@@ -94,7 +101,7 @@ class OrderInline(admin.TabularInline):
 class CustomerAdmin(admin.ModelAdmin):
     model = Customer
     search_fields= ('first_name', 'last_name', 'email')
-    list_display = ('first_name', 'last_name', 'email')
+    list_display = ('id', 'first_name', 'last_name', 'email')
     readonly_fields = ('first_name', 'last_name', 'email', 'address', 'appartment', 'city', 'state', 'country', 'zip_code', 'phone')
 
     formfield_overrides = {
@@ -114,7 +121,7 @@ class CustomerAdmin(admin.ModelAdmin):
 
 class OrderProductInline(admin.TabularInline):
     model = OrderProduct
-    readonly_fields = ('product', 'order', 'quantity', 'cost')
+    readonly_fields = ('product', 'order', 'quantity', 'cost', 'product_size')
     can_delete = False
     max_num=0
 
@@ -122,9 +129,9 @@ class OrderProductInline(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
     model = Order
     search_fields= ('customer', 'status')
-    list_display = ('customer', 'status')
-    fields = ('total_cost', 'status', 'customer_first_name', 'customer_email', 'customer_address', 'customer_phone')
-    readonly_fields = ('total_cost', 'customer_first_name', 'customer_email', 'customer_address', 'customer_phone')
+    list_display = ('id', 'customer', 'status')
+    fields = ('status', 'customer_first_name', 'customer_email', 'customer_address', 'customer_phone', 'total_cost')
+    readonly_fields = ('customer_first_name', 'customer_email', 'customer_address', 'customer_phone', 'total_cost')
 
     inlines = [
         OrderProductInline,
@@ -133,6 +140,13 @@ class OrderAdmin(admin.ModelAdmin):
     formfield_overrides = {
         models.TextField: {'widget': Textarea(attrs={ 'rows': 2, 'cols': 100 })},
     }
+
+    def total_cost(self, request):
+        children = OrderProduct.objects.filter(order=request)
+        total_cost = 0
+        for child in children:
+            total_cost += child.cost*child.quantity
+        return f"${total_cost}"
 
     def has_delete_permission(self, request, obj=None):
         return False
