@@ -3,7 +3,7 @@ from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 from django.conf.urls import include, url
-from products.views import ProductViewSet, OrderViewSet
+from products.views import ProductViewSet, OrderViewSet, CategoryViewSet
 from rest_framework.routers import SimpleRouter
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
@@ -22,8 +22,9 @@ schema_view = get_schema_view(
 
 
 router = SimpleRouter(trailing_slash=False)
-router.register(r'products', ProductViewSet, basename='products')
-router.register(r'order', OrderViewSet, basename='order')
+router.register('categories', CategoryViewSet, basename='categories')
+router.register('products', ProductViewSet, basename='products')
+router.register('order', OrderViewSet, basename='order')
 
 urlpatterns = [
     path('api/', include(router.urls)),

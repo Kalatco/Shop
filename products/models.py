@@ -106,3 +106,7 @@ class OrderProduct(models.Model):
     quantity = models.IntegerField(default=1)
     cost = models.FloatField(default=0.0)
     created = models.DateTimeField(auto_now_add=True)
+
+    @property
+    def total_cost(self):
+        return self.cost*self.quantity

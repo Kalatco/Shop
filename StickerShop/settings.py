@@ -23,6 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'x!uy6w*x+(qo$4*s88h(s_^@)scibnjehkkpdee1)qhz6)f@^@'
 
+# Payment keys
+STRIPE_PUBLISHABLE_KEY = 'pk_test_51H6Q2LHxVqe5J3VbRnN0TFtd8e6v09aA5UfloeoQBETwRqv9g2pT90Y0ihlwn2be2SVKzOZ1wgW32gnWOihKQCGI00Oe4EURlY'
+STRIPE_SECRET_KEY = 'sk_test_51H6Q2LHxVqe5J3Vb3EBIO800puMa8ZLUdRAyIkTRgyaTjix9NmIkGOOu9ct1jA0gjbFQMbcdfBsxarM1hj1jQrkO00QJ0pL1m3'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
