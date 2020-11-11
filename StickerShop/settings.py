@@ -30,7 +30,7 @@ STRIPE_SECRET_KEY = 'sk_test_51H6Q2LHxVqe5J3Vb3EBIO800puMa8ZLUdRAyIkTRgyaTjix9Nm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -45,17 +45,22 @@ INSTALLED_APPS = [
     'products',
     'django_cleanup',
     'drf_yasg',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Disable for production
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'StickerShop.urls'
 

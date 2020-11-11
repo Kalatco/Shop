@@ -43,4 +43,4 @@ class OrderViewSet(viewsets.ViewSet):
     @action(methods=['GET'], detail=False)
     def config(self, request):
         stripe_config = {'publicKey': settings.STRIPE_PUBLISHABLE_KEY}
-        return Response(stripe_config, status=status.HTTP_200_OK)
+        return Response(stripe_config)

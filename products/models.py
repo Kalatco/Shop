@@ -90,7 +90,7 @@ class Order(models.Model):
 
     def customer_address(self):
         return f"{self.customer.address} {self.customer.appartment} \n \
-               {self.customer.city}, {self.customer.city}, {self.customer.country} \n \
+               {self.customer.city}, {self.customer.state}, {self.customer.country} \n \
                {self.customer.zip_code}"
     customer_address.short_description = 'Address'
 
