@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.conf import settings
+from products.tasks import send_email
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 from rest_framework.decorators import action
@@ -20,6 +21,7 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['GET'], detail=True)
     def products(self, request, pk=None):
+        send_email.delay('celery task worked!')
         products = Product.objects.filter(category=pk)
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
