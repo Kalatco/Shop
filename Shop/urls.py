@@ -12,7 +12,7 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="StickerShop API",
+      title="Shop API",
       default_version='v1',
       description="Contains routes to view products and make purchase requests",
    ),

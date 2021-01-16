@@ -2,13 +2,19 @@ version: '3.7'
 
 services:
 
-  redis:
-    image: redis
-    command: redis-server
+  rabbit:
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/data
 
   celery:
     build: .
-    entrypoint: celery -A StickerShop worker --loglevel=info 
+    entrypoint: celery -A Shop worker --loglevel=info 
+    depends_on: 
+      - rabbit
 
   django:
     build: .
@@ -16,5 +22,8 @@ services:
     ports:
       - "80:80"
     depends_on: 
-      - redis
+      - rabbit
       - celery
+
+volumes:
+  rabbitmq_data:

@@ -15,9 +15,9 @@ from django.forms import TextInput, Textarea
 from django.shortcuts import redirect
 from django.db import models
 
-admin.site.site_header = "StickerShop Admin"
-admin.site.site_header = "StickerShop Admin Portal"
-admin.site.index_title = "StickerShop"
+admin.site.site_header = "Shop Admin"
+admin.site.site_header = "Shop Admin Portal"
+admin.site.index_title = "Shop"
 admin.site.unregister(User)
 admin.site.unregister(Group)
 

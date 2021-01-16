@@ -1,0 +1,12 @@
+Hello {{ firstName }} {{ lastName }},
+
+Your order for the following item(s) has been created:
+
+Product | quantity | size | cost 
+----------------------------------------
+{% for product in products %}
+{{ product.name }} |   {{ product.quantity }}   | {{ product.size  }} | ${{ product.cost  }}
+----------------------------------------
+{% endfor %}
+
+Total: ${{ totalCost }}

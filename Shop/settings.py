@@ -29,8 +29,7 @@ ALLOWED_HOSTS = ['*']
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
-CELERY_BROKER_URL = 'redis://redis:6379'
-CELERY_RESULT_BACKEND = 'redis://redis:6379'
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
 
 # for security reasons, mention the list of accepted content-types (in this case json)
 CELERY_ACCEPT_CONTENT = ['json']
@@ -78,12 +77,12 @@ MIDDLEWARE = [
 # Disable for production
 CORS_ORIGIN_ALLOW_ALL = True
 
-ROOT_URLCONF = 'StickerShop.urls'
+ROOT_URLCONF = 'Shop.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -96,7 +95,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'StickerShop.wsgi.application'
+WSGI_APPLICATION = 'Shop.wsgi.application'
 
 
 # Database

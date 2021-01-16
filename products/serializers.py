@@ -40,7 +40,7 @@ class ProductSizeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductSize
-        fields = ['cost', 'size']
+        fields = ['cost', 'size', 'id']
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -50,7 +50,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['images', 'name', 'description', 'category', 'sizes']
+        fields = ['images', 'name', 'description', 'category', 'sizes', 'id']
 
 
 class CustomerSerializer(serializers.ModelSerializer):
@@ -76,12 +76,13 @@ class OrderProductSerializer(serializers.ModelSerializer):
 
 class OrderSerializer(serializers.ModelSerializer):
     customer = CustomerSerializer()
-    orderItems = OrderProductSerializer(many=True)
+    orderItems = OrderProductSerializer(many=True, write_only=True)
     #credit_card = serializers.CharField(write_only=True)
 
     class Meta:
         model = Order
-        fields = ['customer', 'orderItems'] #, 'credit_card']
+        fields = ['customer', 'orderItems', 'id']
+        read_only_fields = ['id']
 
     def create(self, validated_data):
         customer_data = validated_data.pop('customer')
