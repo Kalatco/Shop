@@ -12,12 +12,16 @@ services:
 
   celery:
     build: .
+    image: localhost:5000/shop-project:1.0.0
+    restart: always
     entrypoint: celery -A Shop worker --loglevel=info 
     depends_on: 
       - rabbit
 
   django:
     build: .
+    image: localhost:5000/shop-project:1.0.0
+    restart: always
     entrypoint: python3 manage.py runserver 0.0.0.0:80
     ports:
       - "80:80"

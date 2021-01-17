@@ -21,4 +21,4 @@ def send_order_email(orderSerializer, orderItemsList, totalCost):
     subject = 'New order created'
     email_to = [orderSerializer['customer']['email']]
     email_from = settings.EMAIL_HOST_USER
-    return send_mail(subject, email_template, email_from, settings.EMAIL_RECIPIENTS)
+    return send_mail(subject, email_template, email_from, email_to)

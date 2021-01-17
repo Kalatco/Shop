@@ -1,10 +1,5 @@
 from pathlib import Path
 import os
-import environ
-
-# reading .env file
-env = environ.Env()
-environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,11 +9,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", "fooBar")
 
 # Payment keys
-STRIPE_PUBLISHABLE_KEY = env("STRIPE_PUBLISHABLE_KEY")
-STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+STRIPE_PUBLISHABLE_KEY = os.environ.get("STRIPE_PUBLISHABLE_KEY", "fooBar")
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "fooBar")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -42,10 +37,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = env('EMAIL_USERNAME')
-EMAIL_HOST_PASSWORD = env('EMAIL_PASSWORD')
-# Comma seperated string
-EMAIL_RECIPIENTS = env('EMAIL_RECIPIENTS').split(',')
+EMAIL_HOST_USER = os.environ.get('EMAIL_USERNAME', "email")
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD', "password")
 
 # Application definition
 
@@ -150,3 +143,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+from .settings_local import *
