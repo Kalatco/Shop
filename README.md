@@ -22,13 +22,9 @@ The smtp server configured in the Shop/settings.py is for a gmail account. To co
 
 ## Run with Docker-Compose
 
-1. Configure Shop/settings.py to point to rabbitmq service labeled 'rabbit':
-
-`CELERY_BROKER_URL = 'amqp://guest:guest@rabbit:5672/'`
-
-2. Configure docker-compose.yaml so the email_username and email_password are set to your less secure gmail account.
-3. Configure docker-compose.yml to point to an available port (currently set to port 80)
-4. Run the containers:
+1. Configure docker-compose.yaml so the email_username and email_password are set to your less secure gmail account.
+2. Configure docker-compose.yml to point to an available port (currently set to port 80)
+3. Run the containers:
 
 `docker-compose up --build -d`
 
@@ -46,7 +42,7 @@ To push an image to the local repository:
 
 `docker push localhost:5000/shop-project:1.0.0`
 
-### Prepare minikube
+### Prepare minikube and Ingress
 
 1. If you have started minikube before and want to add the insecure-registry, you must delete the previous minikube instance.
 
@@ -58,11 +54,10 @@ To push an image to the local repository:
 
 You can run `ipconfig` and get your wifi or ethernet IPv4 adress for the {local docker registry IPv4}
 
-Parameters:
-
-`--driver=` this parameter is for choosing a specific VM besides oracle virtualbox.
-
-`--insecure-registry=` this parameter is for accessing a local docker repository, if setup.
+Parameter | Description
+| :--- | :---:
+`--driver=`  | this parameter is for choosing a specific VM besides oracle virtualbox. Not necessary on linux systems.
+`--insecure-registry=`  | this parameter is for accessing a local docker repository, if setup.
 
 3. With the provided ingress yaml, we must expose a host name to connect to the server. Located within the ingress.yaml file, we see the host is currently set to "minikube.local", for this to work on your machine:
 
@@ -82,9 +77,9 @@ d) modify the /etc/hosts file on your computer and add the following:
 
 `{Ingress IP address} minikube.local`
 
-### Startup Servers
+### Startup Deployments
 
-1. configure kubernetes/celery/deployment.yaml and kubernetes/django/deployment.yaml to have the correct env variables for gmail email and password.
+1. configure kubernetes/celery/deployment.yaml and kubernetes/django/deployment.yaml to have the correct env variables for gmail email and password. And modify docker image in the deployment files if necessary.
 
 2. Apply the rabbitmq deployment:
 
