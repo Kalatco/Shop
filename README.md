@@ -1,6 +1,6 @@
 # Online Shop
 
-Andrew's online shop reference guide for deploying a Django, Celery, & Rabbitmq program to kubernetes and Docker.
+Andrew's reference guide for deploying a Django, Celery, & Rabbitmq program to kubernetes and Docker.
 
 ### Run for development
 
@@ -48,7 +48,7 @@ To push an image to the local repository:
 
 ### Prepare minikube
 
-1. If you have started minikube before and want to add the insecure-registry, you must delete the previous minikube instanceL
+1. If you have started minikube before and want to add the insecure-registry, you must delete the previous minikube instance.
 
 `minikube delete`
 
@@ -60,39 +60,42 @@ You can run `ipconfig` and get your wifi or ethernet IPv4 adress for the {local 
 
 Parameters:
 
-`--insecure-registry=` this parameter is for accessing a local docker repository, if setup.
-
 `--driver=` this parameter is for choosing a specific VM besides oracle virtualbox.
 
-3. kubectl apply -f kubernetes/ingress.yaml
+`--insecure-registry=` this parameter is for accessing a local docker repository, if setup.
 
-With the provided ingress yaml, we must expose a host name to connect to the server. Located within the ingress.yaml file, we see the host is currently set to "minikube.local", for this to work on your machine:
+3. With the provided ingress yaml, we must expose a host name to connect to the server. Located within the ingress.yaml file, we see the host is currently set to "minikube.local", for this to work on your machine:
 
-a) Enable minikube ingress:
+a) Apply the ingress:
+
+`kubectl apply -f kubernetes/ingress.yaml`
+
+b) Enable minikube ingress:
 
 `minikube addons enable ingress`
 
-b) Copy the IP adress for your ingress instance:
+c) Copy the IP address for your ingress instance:
 
 `kubectl get ingress minikube-ingress`
 
-c) modify the /etc/hosts file on your computer and add the following:
+d) modify the /etc/hosts file on your computer and add the following:
 
-`{Ingress IP adress} minikube.local`
+`{Ingress IP address} minikube.local`
 
 ### Startup Servers
 
 1. configure kubernetes/celery/deployment.yaml and kubernetes/django/deployment.yaml to have the correct env variables for gmail email and password.
-1. Apply the rabbitmq deployment:
+
+2. Apply the rabbitmq deployment:
 
 `kubectl apply -f kubernetes/rabbitmq/`
 
-2. Apply the django server deployment:
+3. Apply the django server deployment:
 
 `kubectl apply -f kubernetes/django/`
 
-3. Apply the celery deployment:
+4. Apply the celery deployment:
 
 `kubectl apply -f kubernetes/celery/`
 
-4. Navigate to the minikube.local website and visit /swagger to check that the service is now running
+5. Navigate to minikube.local/swagger on your web browser to confirm django is running.
