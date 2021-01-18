@@ -1,20 +1,18 @@
-FROM python:3.8.3-slim-buster
+FROM ubuntu:20.04
 
-# set working directory
 WORKDIR /app
 RUN mkdir static/ && mkdir media/
 
-# set environment varibles
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
+RUN apt update && \
+  apt install -y python3-pip python3-dev
 
-# install system dependencies
-RUN apt-get update && \
-  apt-get -y install netcat gcc
+COPY ./products products/
+COPY ./Shop Shop/
+COPY ./templates templates/
+COPY ./manage.py .
+COPY ./requirements.txt .
+COPY ./data.json .
 
-# copy all files
-COPY . .
-
-# install python dependencies
-RUN pip install -r requirements.txt && \
-  python3 manage.py migrate
+RUN pip3 install -r requirements.txt && \
+  python3 manage.py migrate && \
+  python3 manage.py loaddata data.json

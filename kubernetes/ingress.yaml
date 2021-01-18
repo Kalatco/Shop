@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: shop-ingress
+spec:
+  rules:
+  - host: minikube.local
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: kubernetes-shop-service
+          servicePort: 80

@@ -102,7 +102,7 @@ class CustomerAdmin(admin.ModelAdmin):
     model = Customer
     search_fields= ('first_name', 'last_name', 'email')
     list_display = ('id', 'first_name', 'last_name', 'email')
-    readonly_fields = ('first_name', 'last_name', 'email', 'address', 'appartment', 'city', 'state', 'country', 'zip_code', 'phone')
+    readonly_fields = ('first_name', 'last_name', 'email', 'address', 'apartment', 'city', 'state', 'country', 'zip_code', 'phone')
 
     formfield_overrides = {
         models.TextField: {'widget': Textarea(attrs={ 'rows': 2, 'cols': 100 })},

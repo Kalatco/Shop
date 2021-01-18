@@ -53,7 +53,7 @@ class Customer(models.Model):
     last_name = models.TextField(max_length=120)
     email = models.TextField(max_length=120)
     address = models.TextField(max_length=120)
-    appartment = models.TextField(max_length=120, default=None, blank=True, null=True)
+    apartment = models.TextField(max_length=120, default=None, blank=True, null=True)
     city = models.TextField(max_length=120)
     state = models.TextField(max_length=120, default=None, blank=True, null=True)
     country = models.TextField(max_length=120)
@@ -89,7 +89,7 @@ class Order(models.Model):
     customer_email.short_description = 'Email'
 
     def customer_address(self):
-        return f"{self.customer.address} {self.customer.appartment} \n \
+        return f"{self.customer.address} {self.customer.apartment} \n \
                {self.customer.city}, {self.customer.state}, {self.customer.country} \n \
                {self.customer.zip_code}"
     customer_address.short_description = 'Address'

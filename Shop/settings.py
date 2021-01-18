@@ -24,7 +24,10 @@ ALLOWED_HOSTS = ['*']
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60
 
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'
+CELERY_BROKER_URL = "amqp://guest:guest@{host}:{port}".format(
+    host=os.getenv('BROKER_URL', 'localhost'),
+    port=os.getenv('BROKER_PORT', 5672)
+)
 
 # for security reasons, mention the list of accepted content-types (in this case json)
 CELERY_ACCEPT_CONTENT = ['json']
@@ -143,5 +146,3 @@ STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-from .settings_local import *

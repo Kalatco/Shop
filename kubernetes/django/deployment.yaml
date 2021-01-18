@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shop-backend
+  labels:
+    app: shop-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shop-backend
+  template:
+    metadata:
+      labels:
+        app: shop-backend
+    spec:
+      containers:
+        - name: shop
+          image: 192.168.0.151:5000/shop-project:1.0.0
+          imagePullPolicy: Always
+          command: ["python3", "manage.py", "runserver", "0.0.0.0:80"]
+          ports:
+            - containerPort: 80
+          env:
+            - name: BROKER_URL
+              value: rabbitmq
+            - name: SECRET_KEY
+              value: "fooBar"
+            - name: STRIPE_PUBLISHABLE_KEY
+              value: "fooBar"
+            - name: STRIPE_SECRET_KEY
+              value: "fooBar"
+            - name: EMAIL_USERNAME
+              value: "fooBar"
+            - name: EMAIL_PASSWORD
+              value: "fooBar"

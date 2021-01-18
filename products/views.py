@@ -21,7 +21,6 @@ class CategoryViewSet(viewsets.ReadOnlyModelViewSet):
 
     @action(methods=['GET'], detail=True)
     def products(self, request, pk=None):
-        send_email.delay('celery task worked!')
         products = Product.objects.filter(category=pk)
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)

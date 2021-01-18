@@ -1,0 +1,72 @@
+[
+{
+  "model": "products.category",
+  "pk": 1,
+  "fields": {
+    "name": "vegetables"
+  }
+},
+{
+  "model": "products.size",
+  "pk": 1,
+  "fields": {
+    "name": "10 pounds"
+  }
+},
+{
+  "model": "products.size",
+  "pk": 2,
+  "fields": {
+    "name": "20 pounds"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 1,
+  "fields": {
+    "name": "potatoes",
+    "category": 1,
+    "description": "Or as the french say, Les pommes de terre",
+    "is_visible": true,
+    "created": "2021-01-16T03:09:29.742Z"
+  }
+},
+{
+  "model": "products.product",
+  "pk": 2,
+  "fields": {
+    "name": "Carrots",
+    "category": 1,
+    "description": "makes your eye sight better? Or was that just British propaganda",
+    "is_visible": true,
+    "created": "2021-01-16T03:16:17.790Z"
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 1,
+  "fields": {
+    "product": 2,
+    "size": 1,
+    "cost": 12.99
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 2,
+  "fields": {
+    "product": 2,
+    "size": 2,
+    "cost": 20.99
+  }
+},
+{
+  "model": "products.productsize",
+  "pk": 3,
+  "fields": {
+    "product": 1,
+    "size": 1,
+    "cost": 9.99
+  }
+}
+]
